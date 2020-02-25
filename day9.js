@@ -68,39 +68,36 @@ function operandInsert(operand) {
 }
 
 function calculateTotals() {
-    //we can use a regex exp to check the index on the string which matches an operand
+    //we can use a regex exp to check which operand is being used
+    //split into two arrays so we can separate the numbers
     //then use a case statement to act differently depending on which operand is returned
+    //to convert binary into decimal we can use parseInt with base 2
+    //then compute what we want, and reconvert it with toString
     let computation = '';
+
     const operand = res.innerHTML.match(/(\-|\+|\/|\*)(?=[^\-\+\/\*]*$)/g);
-    //get two arrays of numbers, one before and one after the operand
     const splitArr = resultsCollection.split(operand);
-    const firstHalf = splitArr[0];
-    const secondHalf = splitArr[1];
-
-    console.log(firstHalf);
-    console.log(secondHalf);
-
+    const firstHalf = parseInt(splitArr[0], 2);
+    const secondHalf = parseInt(splitArr[1], 2);
+    console.log(firstHalf)
+    console.log(secondHalf)
 
     switch (operand.toString()) {
         case '+':
-            // computation = prev + current
-            computation = "plus"
+            computation = firstHalf + secondHalf
             break
         case '-':
-            // computation = prev - current
-            computation = "minus"
+            computation = firstHalf - secondHalf
             break
         case '*':
-            computation = "multiply"
-            // computation = prev * current
+            computation = firstHalf * secondHalf
             break
         case '/':
-            // computation = prev / current
-            computation = "divide"
+            computation = firstHalf / secondHalf
             break
 
     }
-    return console.log(computation);
+    return computation.toString(2);
 
 
 }
